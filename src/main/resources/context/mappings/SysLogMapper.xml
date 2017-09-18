@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bill99.acs.gun.dao.ISysLogDao">
+
+	<resultMap id="loginLogMap"
+		type="com.bill99.acs.gun.entity.LoginLog">
+		<result property="id" column="id" />
+		<result property="logName" column="log_name" />
+		<result property="userId" column="user_id" />
+		<result property="createTime" column="create_time" />
+		<result property="succeed" column="succeed" />
+		<result property="message" column="message" />
+		<result property="ip" column="ip" />
+	</resultMap>
+	
+	<resultMap id="operationLogMap"
+		type="com.bill99.acs.gun.entity.OperationLog">
+		<result property="id" column="id" />
+		<result property="logType" column="log_type" />
+		<result property="logName" column="log_name" />
+		<result property="userId" column="user_id" />
+		<result property="className" column="class_name" />
+		<result property="method" column="method" />
+		<result property="createTime" column="create_time" />
+		<result property="message" column="message" />
+	</resultMap>
+	
+	<sql id="loginLogColumns">
+    	t.id,
+    	t.log_name,
+    	t.user_id,
+    	t.create_time,
+    	t.succeed,
+    	t.message,
+    	t.ip
+    </sql>
+    
+    <sql id="operationLogColumns">
+    	t1.id,
+    	t1.log_type,
+    	t1.log_name,
+    	t1.user_id,
+    	t1.class_name,
+    	t1.method,
+    	t1.create_time,
+    	t1.message
+    </sql>
+    
+    <select id="queryLoginLog" resultMap="loginLogMap">
+		SELECT
+			<include refid="loginLogColumns"/>
+		FROM t_gun_login_log t
+		ORDER BY t.create_time DESC
+	</select>
+	
+	<select id="queryOperationLog" resultMap="operationLogMap">
+		SELECT
+		<include refid="operationLogColumns"/>
+		FROM t_gun_operation_log t1
+		ORDER BY t.create_time DESC
+	</select>
+	
+	<insert id="insertLoginLog">
+		INSERT INTO t_gun_login_log(
+			id,
+	    	log_name,
+	    	user_id,
+	    	create_time,
+	    	succeed,
+	    	message,
+	    	ip
+		) VALUES (
+			#{id}, 
+			#{logName}, 
+			#{userId}, 
+			#{createTime}, 
+			#{succeed}, 
+			#{message}, 
+			#{ip}
+		)
+	</insert>
+	
+	<insert id="insertOperationLog">
+		INSERT INTO t_gun_operation_log(
+	    	id,
+	    	log_type,
+	    	log_name,
+	    	user_id,
+	    	class_name,
+	    	method,
+	    	create_time,
+	    	message
+		) VALUES (
+			#{id}, 
+			#{logType}, 
+			#{logName}, 
+			#{userId}, 
+			#{className}, 
+			#{method}, 
+			#{createTime}, 
+			#{message}
+		)
+	</insert>
+	
+</mapper>

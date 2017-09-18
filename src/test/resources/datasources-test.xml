@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	<bean id="seashellDS" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<!-- Connection Info -->
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.6.48:1530:billdb" />
+		<property name="user" value="mas_29" />
+		<property name="password" value="mas123" />
+	</bean>
+</beans>

@@ -1,0 +1,11 @@
+[
+		{ "id":"11", "pId":"0", "name":"清结算"},
+		{ "id":"112", "pId":"11", "name":"清结算明细",  "page":"resource/detail"},
+		{ "id":"113", "pId":"11", "name":"查询人工返回手续费","page":"resource/detail"},
+		{ "id":"114", "pId":"11", "name":"结算明细下载", "page":"resource/detail"},
+		{ "id":"115", "pId":"11", "name":"快速退货信息","page":"resource/detail"},
+		{ "id":"116", "pId":"11", "name":"结算指令查询","page":"resource/detail"},
+		{ "id":"12", "pId":"0", "name":"出款"},
+		{ "id":"121", "pId":"12", "name":"出款策略级别维护" ,"page":"resource/detail"},
+		{ "id":"1211", "pId":"121", "name":"查询出款策略级别" ,"page":"resource/detail"}
+]

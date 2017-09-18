@@ -1,0 +1,11 @@
+[
+		{ "id":"11", "pId":"0", "name":"清结算管理"},
+		{ "id":"112", "pId":"11", "name":"清结算明细",  "page":"page_base_staff.action"},
+		{ "id":"113", "pId":"11", "name":"工作日历管理","page":"page_base_region.action"},
+		{ "id":"114", "pId":"11", "name":"系统汇率管理", "page":"page_base_subarea.action"},
+		{ "id":"115", "pId":"11", "name":"清分明细查询","page":"page_base_decidedzone.action"},
+		{ "id":"116", "pId":"11", "name":"线下退货检出","page":"page_base_decidedzone.action"},
+		{ "id":"12", "pId":"0", "name":"T+0出款管理"},
+		{ "id":"121", "pId":"12", "name":"T+0银行管理" ,"page":"page_qupai_noticebill_add.action"},
+		{ "id":"122", "pId":"12", "name":"T+0商户额度管理" ,"page":"page_qupai_quickworkorder.action"}
+]

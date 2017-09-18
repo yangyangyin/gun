@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bill99.acs.gun.dao.IUserDao">
+	
+	<resultMap id="userListMap" type="com.bill99.acs.gun.entity.User">
+		<result property="id" column="id" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="realName" column="real_name" />
+		<result property="email" column="email" />
+		<result property="mobilePhone" column="mobile_phone" />
+		<result property="officePhone" column="office_phone" />
+		<result property="lastSuccessTime" column="last_success_time" />
+		<result property="lastFailTime" column="last_fail_time" />
+		<result property="lastPasswordTime" column="last_password_time" />
+		<result property="updateName" column="update_name" />
+		<result property="updateTime" column="update_time" />
+		<result property="updateBy" column="update_by" />
+		<result property="createName" column="create_name" />
+		<result property="createTime" column="create_time" />
+		<result property="createBy" column="create_by" />
+		<result property="deleteName" column="delete_name" />
+		<result property="deleteTime" column="delete_time" />
+		<result property="deleteBy" column="delete_by" />
+		<result property="status" column="status" />
+		<result property="deleteFlag" column="delete_flag" />
+	</resultMap>
+
+	<resultMap id="userVoResultMap" type="com.bill99.acs.gun.entity.vo.UserVo">
+		<result property="id" column="id" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="realName" column="real_name" />
+		<result property="email" column="email" />
+		<result property="mobilePhone" column="mobile_phone" />
+		<result property="officePhone" column="office_phone" />
+		<result property="lastSuccessTime" column="last_success_time" />
+		<result property="lastFailTime" column="last_fail_time" />
+		<result property="lastPasswordTime" column="last_password_time" />
+		<result property="updateName" column="update_name" />
+		<result property="updateTime" column="update_time" />
+		<result property="updateBy" column="update_by" />
+		<result property="createName" column="create_name" />
+		<result property="createTime" column="create_time" />
+		<result property="createBy" column="create_by" />
+		<result property="deleteName" column="delete_name" />
+		<result property="deleteTime" column="delete_time" />
+		<result property="deleteBy" column="delete_by" />
+		<result property="status" column="status" />
+		<result property="deleteFlag" column="delete_flag" />
+
+		<collection property="rolesList" ofType="Role">
+			<id column="roleId" property="id" />
+			<result column="roleName" property="roleName" />
+		</collection>
+	</resultMap>
+
+
+	<sql id="userListColumns">
+		t.id,
+		t.username,
+		t.password,
+		t.real_name,
+		t.email,
+		t.mobile_phone,
+		t.office_phone,
+		t.last_success_time,
+		t.last_fail_time,
+		t.last_password_time,
+		t.update_name,
+		t.update_time,
+		t.update_by,
+		t.create_name,
+		t.create_time,
+		t.create_by,
+		t.delete_name,
+		t.delete_time,
+		t.delete_by,
+		t.status,
+		t.delete_flag
+	</sql>
+
+	<select id="selectDataGrid" resultType="com.bill99.acs.gun.entity.User">
+		select 
+			id,
+			username,
+			password,
+			real_name,
+			status,
+			email,
+			mobile_phone,
+			office_phone,
+			create_time,
+			create_by
+		from
+			t_gun_user
+		<where>
+			<if test="username != null and ''!=username.trim()">
+				and username like concat(concat('%',#{username}),'%')
+			</if>
+		</where>
+		limit #{from},#{size}
+	</select>
+	<select id="selectUserCount" resultType="java.lang.Integer">
+		SELECT
+			COUNT(1)
+		FROM
+			t_gun_user
+		<where>
+			<if test="username != null and ''!=username.trim()">
+				and username like concat(concat('%',#{username}),'%')
+			</if>
+		</where>
+			
+	</select>
+
+
+	<select id="findList" resultMap="userListMap">
+		SELECT
+		<include refid="userListColumns" />
+		FROM t_gun_user t
+		<where>
+			<if test="username != null and username != ''">
+				AND t.username = #{username}
+			</if>
+		</where>
+		ORDER BY t.create_time DESC
+	</select>
+
+	<select id="selectUserVoById" resultMap="userVoResultMap"
+		parameterType="java.lang.Long">
+		SELECT
+		<include refid="userListColumns" />
+		o.id AS roleId,
+		o.role_name AS roleName
+		FROM
+		t_gun_user t
+		LEFT JOIN
+		t_gun_user_role r ON t.id = r.user_id
+		LEFT JOIN t_gun_role o ON
+		r.role_id = o.id
+		<where>
+			t.id = #{id}
+		</where>
+	</select>
+
+	<insert id="insert">
+		INSERT INTO t_gun_user(
+		id,
+		username,
+		password,
+		real_name,
+		status,
+		email,
+		mobile_phone,
+		office_phone,
+		create_time,
+		create_name,
+		create_by,
+		update_name,
+		update_time,
+		update_by,
+		delete_flag,
+		delete_time,
+		delete_name,
+		delete_by,
+		last_success_time,
+		last_fail_time,
+		last_password_time
+		) VALUES (
+		#{id},
+		#{username},
+		#{password},
+		#{realName},
+		#{status},
+		#{email},
+		#{mobilePhone},
+		#{officePhone},
+		#{createTime},
+		#{createName},
+		#{createBy},
+		#{updateName},
+		#{updateTime},
+		#{updateBy},
+		#{deleteFlag},
+		#{deleteTime},
+		#{deleteName},
+		#{deleteBy},
+		#{lastSuccessTime},
+		#{lastFailTime},
+		#{lastPasswordTime}
+		)
+	</insert>
+	<update id="deleteById">
+		update t_gun_user set status = '0' where id=#{id}
+	</update>
+</mapper>

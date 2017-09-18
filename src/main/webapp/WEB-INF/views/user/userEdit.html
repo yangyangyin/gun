@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>编辑用户</title>
+	<script type="text/javascript" src="${base}/static/js/jquery-1.8.3.js"></script>	
+	<script type="text/javascript" src="${base}/static/js/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="${base}/static/js/easyui/ext/jquery.portal.js"></script>
+	<script type="text/javascript" src="${base}/static/js/easyui/ext/jquery.cookie.js"></script>
+	<script type="text/javascript" src="${base}/static/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+	<link rel="stylesheet" type="text/css" href="${base}/static/js/easyui/themes/default/easyui.css"/>
+	<link rel="stylesheet" type="text/css" href="${base}/static/js/easyui/themes/icon.css"/>
+	<link rel="stylesheet" type="text/css" href="${base}/static/js/easyui/ext/portal.css"/>
+	<link rel="stylesheet" type="text/css" href="${base}/static/css/default.css"/>
+</script>
+</head>
+<div class="easyui-layout" data-options="fit:true,border:false">
+    <div data-options="region:'center',border:false" title="" style="overflow: hidden;padding: 3px;">
+        <form id="userEditForm" method="post">
+            <div class="light-info" style="overflow: hidden;padding: 3px;">
+                <div>密码不修改请留空。</div>
+            </div>
+            <table class="grid">
+                <tr>
+                    <td>登录名</td>
+                    <td><input name="id" type="hidden"  value="234543">
+                    <input name="loginName" type="text" placeholder="请输入登录名称" class="easyui-validatebox" data-options="required:true" value="123456></td>
+                    <td>姓名</td>
+                    <td><input name="name" type="text" placeholder="请输入姓名" class="easyui-validatebox" data-options="required:true" value="123456"></td>
+                </tr>
+                <tr>
+                    <td>密码</td>
+                    <td><input type="text" name="password"/></td>
+                    <td>性别</td>
+                    <td><select id="userEditSex" name="sex" class="easyui-combobox" data-options="width:140,height:29,editable:false,panelHeight:'auto'">
+                            <option value="0">男</option>
+                            <option value="1">女</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>年龄</td>
+                    <td><input type="text" name="age" value="123456" class="easyui-numberbox"/></td>
+                    <td>用户类型</td>
+                    <td><select id="userEditUserType" name="userType" class="easyui-combobox" data-options="width:140,height:29,editable:false,panelHeight:'auto'">
+                            <option value="0">管理员</option>
+                            <option value="1">用户</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>部门</td>
+                    <td><select id="userEditorganizationId" name="organizationId" style="width: 140px; height: 29px;" class="easyui-validatebox" data-options="required:true"></select></td>
+                    <td>角色</td>
+                    <td><input  id="userEditRoleIds" name="roleIds" style="width: 140px; height: 29px;"/></td>
+                </tr>
+                <tr>
+                    <td>电话</td>
+                    <td>
+                        <input type="text" name="phone" class="easyui-numberbox" value="123456"/>
+                    </td>
+                    <td>用户类型</td>
+                    <td><select id="userEditStatus" name="status" value="123456" class="easyui-combobox" data-options="width:140,height:29,editable:false,panelHeight:'auto'">
+                            <option value="0">正常</option>
+                            <option value="1">停用</option>
+                    </select></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</html>

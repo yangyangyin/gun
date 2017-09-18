@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>添加新用户</title>
+<script type="text/javascript" src="${base}/static/js/jquery-1.8.3.js"></script>
+<script type="text/javascript"
+	src="${base}/static/js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="${base}/static/js/easyui/ext/jquery.portal.js"></script>
+<script type="text/javascript"
+	src="${base}/static/js/easyui/ext/jquery.cookie.js"></script>
+<script type="text/javascript"
+	src="${base}/static/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${base}/static/js/easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="${base}/static/js/easyui/themes/icon.css" />
+<link rel="stylesheet" type="text/css"
+	href="${base}/static/js/easyui/ext/portal.css" />
+<link rel="stylesheet" type="text/css"
+	href="${base}/static/css/default.css" />
+
+<script type="text/javascript">
+	$(function() {
+ 		$('#userAddOrganizationId').combotree({
+			url : '${base}/organization/tree',
+			parentField : 'pid',
+			lines : true,
+			panelHeight : 'auto'
+		}); 
+
+		$('#userAddRoleIds').combotree({
+			url : '${base}/role/tree',
+			multiple : true,
+			required : true,
+			panelHeight : 'auto'
+		});
+		
+		$.extend($.fn.validatebox.defaults.rules, {
+		    equals: {
+		        validator: function(value,param){
+		            return value == $(param[0]).val();
+		        },
+		        message: '两次密码不一致!'
+		    }
+		});
+		
+		$('#userAddForm').form({
+			url : '${base}/user/addUser',
+			onSubmit : function() {
+				progressLoad();
+				var isValid = $(this).form('validate');
+				if (!isValid) {
+					progressClose();
+				}
+				return isValid;
+			},
+			success : function(result) {
+				progressClose();
+				result = $.parseJSON(result);
+				if (result.success) {
+					parent.$.modalDialog.openner_dataGrid.datagrid('reload');//之所以能在这里调用到parent.$.modalDialog.openner_dataGrid这个对象，是因为user.jsp页面预定义好了
+					parent.$.modalDialog.handler.dialog('close');
+				} else {
+					var form = $('#userAddForm');
+					parent.$.messager.alert('提示', eval(result.msg), 'warning');
+				}
+			}
+		});
+
+	});
+</script>
+</head>
+	<div class="easyui-layout" data-options="fit:true,border:false">
+		<div data-options="region:'center',border:false" title=""
+			style="overflow: hidden; padding: 3px;">
+			<div class="ftitle" ><font color="blue" size="4">基本信息:</font></div>
+			<hr align="left" width="800"/>
+			<form id="userAddForm" method="post">
+				<table class="grid">
+					<tr>
+						<td><font color="red">*</font>用户名:</td>
+						<td><input name="username" type="text" placeholder="请输入用户名"
+							class="easyui-validatebox" data-options="required:true" value=""></td>
+					</tr>
+					<tr>
+						<td><font color="red">*</font>密码:</td>
+						<td><input name="password" type="password" placeholder="请输入密码"
+							class="easyui-validatebox" data-options="required:true" value=""></td>
+					</tr>
+					<tr>
+						<td><font color="red">*</font>确认密码</td>
+						<td><input id="rpwd" name="rpwd" type="password" class="easyui-validatebox"
+    required="required" validType="equals['#password']"></td>
+					</tr>
+					<tr>
+						<td>真实姓名</td>
+						<td><input name="realName" type="text"></td>
+					</tr>
+					<tr>
+						<td>年龄</td>
+						<td><input type="text" name="age" class="easyui-numberbox" /></td>
+					</tr>
+					<tr>
+						<td>邮箱</td>
+						<td><input class="easyui-validatebox" data-options="validType:['email','length[0,20]']"></td>
+					</tr>
+					<tr>
+						<td>手机号码</td>
+						<td><input type="text" name="mobilePhone" class="easyui-numberbox" data-options="validType:'length[11,11]'"></td>
+					</tr>
+					<tr>
+						<td>办公电话</td>
+						<td><input type="text" name="officePhone" data-options="validType:'length[5,13]'"></td>
+					</tr>
+					<tr>
+						<td>用户状态</td>
+						<td><select name="status" class="easyui-combobox"
+							data-options="width:140,height:29,editable:false,panelHeight:'auto'">
+								<option value="0">正常</option>
+								<option value="1">停用</option>
+						</select></td>
+					</tr>
+					<tr>
+						<td>
+							<a href="#" class="easyui-linkbutton" iconCls="icon-add">添加角色</a>
+						</td>
+						<td>
+							<div class="easyui-window" title="角色列表" icon="icon-help" style="width:550px;height:270px;padding:5px;background: #fafafa;">
+						        <div class="easyui-layout" fit="true">
+						            <div region="west" split="true" style="width:120px;">
+						                <ul class="easyui-tree">
+						                    <li>
+						                        <span>角色列表</span>
+						                        <ul>
+						                            <li><span>管理员</span></li>
+						                            <li><span>商务部</span></li>
+						                            <li><span>秘书</span></li>
+						                            <li><span>总监</span></li>
+						                        </ul>
+						                    </li>
+						                </ul>
+						            </div>
+						            <div region="center" border="false" border="false">
+						                <div class="easyui-tabs" fit="true">
+						                    <div title="Home" style="padding:10px;">
+						                        j管理员,商务部,秘书,总监
+						                    </div>
+						                </div>
+						            </div>
+						            <div region="south" border="false" style="text-align:right;height:30px;line-height:30px;">
+						                <a class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">Ok</a>
+						                <a class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">Cancel</a>
+						            </div>
+						        </div>
+						    </div>
+						</td>
+						
+					</tr>
+					<tr height="100" align="center">
+						<td></td>
+					</tr>
+					<tr>
+						<td>
+							<a href="#" class="easyui-linkbutton" iconCls="icon-ok">提交</a>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+</html>

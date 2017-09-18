@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bill99.acs.gun.dao.ResourceMapper">
+	<resultMap id="BaseResultMap" type="Resource">
+		<id column="id" property="id" />
+		<result column="resource_level" property="resourceLevel" />
+		<result column="resource_name" property="resourceName" />
+		<result column="resource_order" property="resourceOrder" />
+		<result column="resource_url" property="resourceUrl" />
+		<result column="parent_resource_id" property="parentResourceId" />
+		<result column="resource_type" property="resourceType" />
+		<result column="create_name" property="createName" />
+		<result column="create_time" property="createTime" />
+		<result column="create_by" property="createBy" />
+		<result column="update_name" property="updateName" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_by" property="updateBy" />
+		<result column="status" property="status" />
+		<result column="delete_name" property="deleteName" />
+		<result column="delete_time" property="deleteTime" />
+		<result column="delete_by" property="deleteBy" />
+		<result column="delete_flag" property="deleteFlag" />
+		<result column="is_open" property="isOpen" />
+	</resultMap>
+
+	<select id="getResourceList" resultMap="BaseResultMap">
+		select * from t_gun_resource
+	</select>
+	
+	<select id="getResource" resultMap="BaseResultMap">
+		select * from t_gun_resource where id = #{id}
+	</select>
+	
+	<update id="updateResourceSelective" parameterType="Resource">
+    	update t_gun_resource
+    <set>
+	    <if test="resourceLevel != null">
+	      resource_level = #{resourceLevel},
+	    </if>
+	    <if test="resourceName != null">
+	      resource_name = #{resourceName},
+	    </if>
+	    <if test="resourceOrder != null">
+	      resource_order = #{resourceOrder},
+	    </if>
+	    <if test="resourceUrl != null">
+	      resource_url = #{resourceUrl},
+	    </if>
+	    <if test="parentResourceId != null">
+	      parent_resource_id = #{parentResourceId},
+	    </if>
+	    <if test="resourceType != null">
+	      resource_type = #{resourceType},
+	    </if>
+	    <if test="createName != null">
+	      create_name = #{createName},
+	    </if>
+	    <if test="createTime != null">
+	      create_time = #{createTime},
+	    </if>
+	    <if test="createBy != null">
+	      create_by = #{createBy},
+	    </if>
+	    <if test="updateName != null">
+	      update_name = #{updateName},
+	    </if>
+	    <if test="updateTime != null">
+	      update_time = #{updateTime},
+	    </if>
+	    <if test="updateBy != null">
+	      update_by = #{updateBy},
+	    </if>
+	    <if test="status != null">
+	      status = #{status},
+	    </if>
+	    <if test="deleteName != null">
+	      delete_name = #{deleteName},
+	    </if>
+	    <if test="deleteTime != null">
+	      delete_time = #{deleteTime},
+	    </if>
+	    <if test="deleteBy != null">
+	      delete_by = #{deleteBy},
+	    </if>
+	    <if test="deleteFlag != null">
+	      delete_flag = #{deleteFlag},
+	    </if>
+	    <if test="isOpen != null">
+	      is_open = #{isOpen},
+	    </if>
+    </set>
+    	where id = #{id}
+  	</update>
+	
+	
+	
+</mapper>

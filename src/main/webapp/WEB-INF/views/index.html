@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>acs-gun</title>
+	<link rel="stylesheet" type="text/css" href="${base}/static/js/easyui/themes/default/easyui.css"/>
+	<link rel="stylesheet" type="text/css" href="${base}/static/js/easyui/themes/icon.css"/>
+	<link rel="stylesheet" type="text/css" href="${base}/static/js/ztree/zTreeStyle.css"/>
+	<link rel="stylesheet" type="text/css" href="${base}/static/css/default.css"/>
+	<script type="text/javascript" src="${base}/static/js/jquery-1.8.3.js"></script>	
+	<script type="text/javascript" src="${base}/static/js/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="${base}/static/js/ztree/jquery.ztree.all-3.5.js"></script>
+	<script type="text/javascript" src="${base}/static/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+	<style>
+		.shortcut
+		{
+			margin-left: 5px;
+			margin-right: 15px;
+			margin-top: 8px;
+			height:71px;
+			float: right;
+		}
+		.shortcut li
+		{
+			float: left;
+			list-style: none;
+			margin-right: 10px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body class="easyui-layout">
+	<!-- 顶部 -->
+	<div data-options="region:'north',border:false"
+		style="height:100px;padding:0px;background:url('${base}/static/images/header_bg.png') no-repeat right;overflow:hidden;">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+    			<td align="left" style="vertical-align: text-bottom">
+    				<img src="${base}/static/images/logo.png" style="margin-left:10px;margin-top:10px;"> 
+    			</td>
+    			<td align="right" nowrap>
+        			<table border="0" cellpadding="0" cellspacing="0">
+            			<tr style="height: 25px;" align="right">
+                			<td style="" colspan="2">
+                    			<div style="float: right;">
+                    				<div style="float: left; line-height: 25px; margin-left: 70px;">
+                    					<div style="float: left; line-height: 25px; margin-left: 70px;">
+                        					<span style="color: #386780"><img src="${base}/static/images/user.png"></span> 
+                        					<!-- <span style="color: #000000">${username}</span> -->
+                        					<!-- <span style="color: #000000">yyyyy</span> -->
+                    					</div>
+                    					<div style="float: left; margin-left: 18px;">
+                        					<div style="right: 0px; bottom: 0px;">
+                            					<a href="javascript:void(0);" class="easyui-menubutton"
+													data-options="menu:'#layout_north_kzmbMenu',iconCls:'icon-comturn'"
+													style="color: #000000">控制面板
+												</a>
+                        					</div>
+                    					</div>
+                    					<div id="layout_north_kzmbMenu" style="width: 100px; display: none;">
+											<div onclick="editPassword();">修改密码</div>
+											<div onclick="showAbout();">联系管理员</div>
+											<div class="menu-sep"></div>
+											<div onclick="logoutFun();">安全退出</div>
+										</div>
+                    					<div style="float: left; margin-left: 8px;margin-right: 5px; margin-top: 5px;">
+                        					<img src="${base}/static/images/layout_button_up.gif"
+                             					style="cursor:pointer" onclick="panelCollapase()" />
+                    					</div>
+                    				</div>
+                    			</div>
+                			</td>
+            			</tr>
+            			<tr style="height: 80px;">
+                			<td colspan="2">
+                    			<ul class="shortcut">
+                        			<li style="position: relative;">
+										<div style="width:67px;position: absolute;top:39px;text-align:center;color:#909090;font-size:13px;">
+											<span style="letter-spacing:-1px;">清结算</span>
+											<input id="bFlag" type="hidden" value="mcs">
+										</div>
+										<img class="imag1" src="${base}/static/images/default.png" style="display: inline-block;">
+										<img class="imag2" src="${base}/static/images/default_up.png" style="display: none;">
+									</li>  
+									
+									<li style="position: relative;">
+										<div style="width:67px;position: absolute;top:39px;text-align:center;color:#909090;font-size:13px;">
+											<span style="letter-spacing:-1px;">出款</span>
+											<input id="bFlag" type="hidden" value="fo">
+										</div>
+										<img class="imag1" src="${base}/static/images/default.png" style="display: inline-block;">
+										<img class="imag2" src="${base}/static/images/default_up.png" style="display: none;">
+									</li> 
+									
+									<li style="position: relative;">
+										<div style="width:67px;position: absolute;top:39px;text-align:center;color:#909090;font-size:13px;">
+											<span style="letter-spacing:-1px;">系统管理</span>
+											<input id="bFlag" type="hidden" value="admin">
+										</div>
+										<img class="imag1" src="${base}/static/images/default.png" style="display: inline-block;">
+										<img class="imag2" src="${base}/static/images/default_up.png" style="display: none;">
+									</li>
+                    			</ul>
+                			</td>
+            			</tr>
+        			</table>
+    			</td>
+			</tr>
+		</table>
+	</div>
+	<!-- 顶部结束 -->
+	<div data-options="region:'west',split:true,title:'菜单导航'"
+		style="width:200px">
+			<div id="treeMenu" class="ztree"></div>
+	</div>
+	<div data-options="region:'center'">
+		<div id="tabs" fit="true" class="easyui-tabs" border="false">
+			
+		</div>
+	</div>
+	
+	<!-- 底部 -->
+	<div region="south" border="false" style="height: 25px; overflow: hidden;">
+	    <div align="center" style="color: #1fa3e5; padding-top: 2px">&copy;快钱  版权所有
+	        <span class="tip">
+	            <a href="http://www.99bill.com" title="快钱">www.99bill.com</a>
+	            (推荐谷歌浏览器，获得更快响应速度) 技术支持:
+	            <a href="#" title="www.99bill.com">www.99bill.com</a>
+	        </span>
+	    </div>
+	</div>
+			
+<script type="text/javascript">
+
+//ztree节点点击事件
+function onClick(event, treeId, treeNode, clickFlag) {
+	// 判断树菜单节点是否含有 page属性
+	if (treeNode.page!=undefined && treeNode.page!= "") {
+		if ($("#tabs").tabs('exists', treeNode.name)) {// 判断tab是否存在
+			$('#tabs').tabs('select', treeNode.name); // 切换tab
+		} else {
+			// 开启一个新的tab页面
+			var content = '<div style="width:100%;height:100%;overflow:hidden;">'
+					+ '<iframe src="'
+					+ treeNode.page
+					+ '" scrolling="auto" style="width:100%;height:100%;border:0;" ></iframe></div>';
+
+			$('#tabs').tabs('add', {
+				title : treeNode.name,
+				content : content,
+				closable : true
+			});
+		}
+	}
+}
+
+// 退出登录
+function logoutFun() {
+    $.messager.confirm('提示','确定要退出?',function(r){
+        if (r){
+           $.get("${base}/logout");
+        }
+    });
+}
+// 顶部闭合实现
+function panelCollapase(){
+    $(".easyui-layout").layout('collapse','north');
+}
+
+// 修改密码
+function editPassword() {
+	$('#editPwdWindow').window('open');
+}
+// 联系管理员
+function showAbout(){
+	$.messager.alert("gun99","设计: admin<br/> 管理员邮箱: admin@99bill.com <br/>");
+}
+
+//jquery开始
+$(function() {
+	var setting = {
+		data : {
+			simpleData : { // 简单数据 
+				enable : true
+			}
+		},
+		callback : {
+			onClick : onClick
+		}
+	};
+	
+	//顶部功能模块菜单按钮触发事件
+	$(".shortcut li").on("click",function(){
+		 var title = $(this).text();
+		 $(this).find(".imag1").hide();
+		 $(this).find(".imag2").show();
+		 $(this).siblings().find(".imag2").hide();
+		 $(this).siblings().find(".imag1").show();
+		 var resName = $(this).find("#bFlag").attr("value");
+		 $.getJSON("${base}/static/json/"+resName+".json",function(data){
+				$.fn.zTree.init($("#treeMenu"), setting, data);
+			},"json");
+		}); 
+	
+	$("#btnCancel").click(function(){
+		$('#editPwdWindow').window('close');
+	});
+	
+	$("#btnEp").click(function(){
+		alert("修改密码");
+	});
+});
+</script>
+</body>
+</html>

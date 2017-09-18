@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" monitorInterval="30">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout charset="UTF-8" pattern="%d{HH:mm:ss.SSS} [%t] %-5level %C %L - %msg%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<AsyncLogger name="java.sql.ResultSet" level="INFO">
+			<AppenderRef ref="logfile" />
+		</AsyncLogger>
+		<AsyncLogger name="java.sql.Connection" level="INFO">
+			<AppenderRef ref="logfile" />
+		</AsyncLogger>
+		<AsyncLogger name="java.sql.Statement" level="INFO">
+			<AppenderRef ref="logfile" />
+		</AsyncLogger>
+		<AsyncLogger name="java.sql.PreparedStatement" level="INFO">
+			<AppenderRef ref="logfile" />
+		</AsyncLogger>
+		<AsyncLogger name="org.mybatis" level="INFO">
+			<AppenderRef ref="logfile" />
+		</AsyncLogger>
+		<AsyncRoot level="debug" includeLocation="true">
+			<AppenderRef ref="Console" />
+		</AsyncRoot>
+	</Loggers>
+</Configuration>

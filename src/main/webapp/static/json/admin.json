@@ -1,0 +1,5 @@
+[
+		{ "id":"1001", "pId":"100", "name":"用户管理", "page":"/gun/user/index"},
+		{ "id":"1002", "pId":"100", "name":"菜单管理", "page":"resource"},
+		{ "id":"1003", "pId":"100", "name":"角色管理", "page":"/service/page/admin/role"}
+]
